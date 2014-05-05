@@ -33,6 +33,24 @@ function assert(expr, message) {
 }
 assert.count = 0;
 
+function assertEqual(actual, expected) {
+    return assert(actual === expected, 
+		'Found ' + actual + '[' + typeof actual +'], expected ' + expected + '[' + typeof expected + ']');
+}
+
+function assertThrows(func, message) {
+    try {
+        func();
+    } catch (ex) {
+        if (!message) {
+            return assert(true);
+        } else {
+            return assertEqual(ex.message, message);
+        }
+    }
+    return assert(false, 'An exception was expected, but was not thrown');
+}
+
 function testCase(name, tests) {
     assert.count = 0;
     var successful = 0,
