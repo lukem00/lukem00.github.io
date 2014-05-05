@@ -58,6 +58,8 @@ function testCase(name, tests) {
         hasSetup = typeof tests.setUp == 'function',
         hasTeardown = typeof tests.tearDown == 'function';
     
+    println(name);
+    
     for (var test in tests) {
         if (!/^test/.test(test)) {
             continue;
@@ -68,11 +70,11 @@ function testCase(name, tests) {
         try {
             if (hasSetup) tests.setUp();
             tests[test]();
-            println(test, '#0c0');
+            println('  ' + test, '#0c0');
             if (hasTeardown) tests.tearDown();
             successful++;
         } catch (ex) {
-            println(test + ' failed: ' + ex.message, '#c00');
+            println('  ' + test + ' failed: ' + ex.message, '#c00');
         }
     }
     
